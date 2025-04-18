@@ -12,6 +12,38 @@ This is a WIP and the repository should grow in the future. Not all examples wil
 
 ## Some remarks regarding the shared parts
 
+### Powershell
+
+Powershell profile working for both Windows and Linux.
+
+#### CoreUtils module
+
+Adds alias for commands available from [CoreUtils](https://github.com/uutils/coreutils) with a few exceptions.
+
+#### MOTD
+
+Module to display MOTD files for a powershell session. My basic idea was to have a local machine specific MOTD that contains things that are noteworthy or weird on that system, and a user specific MOTD that is cloud synced to all my devices.
+
+#### OneIM
+
+Powershell module to support [OneIM](https://www.oneidentity.com/products/identity-manager/) lab installations with functions for
+- extraction of docs (chms, guides, release notes) from new versions' installsets - I use [recoll](https://www.recoll.org/) to search through these
+- installation of frontend and jobservice directories for all modules via installer.cli.exe
+- start of frontends of a specific version
+- start of jobservice of a specific version
+- various functions that start containers from [OneIM docker images](https://hub.docker.com/u/oneidentity/)
+  - these are mostly for Linux images, but some functions exist for Windows images
+  - both Linux and Windows containers can run side by side, but
+    - I don't remember the details, but on my lab computer Windows Firewall prevented communication of Windows containers with a database running in a Linux container. I had to add an exception specifically for this.:w
+    - the module assumes that docker contexts "Linux" and "Windows" are available:
+``` 
+λ 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchWindowsEngine
+λ docker context create windows --description "Windows containers" --default-stack-orchestrator=swarm --docker "host=npipe:////./pipe/dockerDesktopWindowsEngine"
+
+λ & 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchLinuxEngine
+λ docker context create linux --description "Linux containers" --default-stack-orchestrator=swarm --docker "host=npipe:////./pipe/dockerDesktopLinuxEngine"
+
+```
 ### Sway
 
 The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none of those are public yet but will be later.

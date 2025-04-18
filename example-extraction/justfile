@@ -96,3 +96,12 @@ commit msg="Update examples":
 
 push:
     cd {{output}} && test -n "$(git log --branches --not --remotes)" && git push || exit 0
+
+[confirm]
+squash:
+    cd {{output}} && \
+        git checkout --orphan __temp__ && \
+        git add . && \
+        git commit -m "initial squash commit" && \
+        git branch -M main && git push --force
+
