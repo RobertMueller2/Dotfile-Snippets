@@ -28,7 +28,7 @@ Module to display MOTD files for a powershell session. My basic idea was to have
 
 Powershell module to support [OneIM](https://www.oneidentity.com/products/identity-manager/) lab installations with functions for
 - extraction of docs (chms, guides, release notes) from new versions' installsets - I use [recoll](https://www.recoll.org/) to search through these
-- installation of frontend and jobservice directories for all modules via installer.cli.exe
+- installation of frontend and jobservice directories for all modules via InstallManager.cli.exe
 - start of frontends of a specific version
 - start of jobservice of a specific version
 - various functions that start containers from [OneIM docker images](https://hub.docker.com/u/oneidentity/)
