@@ -7,7 +7,7 @@ files:="files.list"
 
 default: extract-all
 
-extract-all: clean copy-static-files && diff commit
+extract-all: clean copy-static-files && diff
     cat {{files}} | while read start_location comment_char filename_pattern ; do \
         just extract $start_location $comment_char $filename_pattern; \
     done
