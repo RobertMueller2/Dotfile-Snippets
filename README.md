@@ -34,7 +34,7 @@ Powershell module to support [OneIM](https://www.oneidentity.com/products/identi
 - various functions that start containers from [OneIM docker images](https://hub.docker.com/u/oneidentity/)
   - these are mostly for Linux images, but some functions exist for Windows images
   - both Linux and Windows containers can run side by side, but
-    - I don't remember the details, but on my lab computer Windows Firewall prevented communication of Windows containers with a database running in a Linux container. I had to add an exception specifically for this.:w
+    - I don't remember the details, but on my lab computer Windows Firewall prevented communication of Windows containers with a database running in a Linux container. I had to add an exception specifically for this.
     - the module assumes that docker contexts "Linux" and "Windows" are available:
 ``` 
 λ 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchWindowsEngine
