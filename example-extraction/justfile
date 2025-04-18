@@ -1,0 +1,98 @@
+# extracts shared sections for Dotfile-Snippets repository.
+
+dotfiles:=".."
+src:="src"
+output:="../../Dotfile-Snippets"
+files:="files.list"
+
+default: extract-all
+
+extract-all: clean copy-static-files && diff commit
+    cat {{files}} | while read start_location comment_char filename_pattern ; do \
+        just extract $start_location $comment_char $filename_pattern; \
+    done
+
+copy-static-files:
+    tar -cf - src | (cd {{output}} && tar -xvf - --strip-components=1)
+
+extract start_location comment_char filename_pattern:
+    for f in $(find {{dotfiles}}/{{start_location}} \
+        \( -name {{output}} \
+        -o -name .git \
+        -o -name  vimfiles-Debian \
+        -o -path examples/src \
+        \) -prune -o \
+        -type f -name "{{filename_pattern}}" -print) ; do just extract-file $f {{comment_char}} {{start_location}}; done
+
+extract-file filename comment_char start_location:
+    #!/usr/bin/perl
+    use strict;
+    use warnings;
+    use File::Path qw(make_path);
+    use File::Basename;
+
+    open (my $fh, "<", "{{filename}}") or die "Could not open {{filename}}: $!";
+    my $comment_char='{{comment_char}}';
+    my $example_started=0;
+    my $line = 0;
+    my $outfh;
+
+    while (<$fh>) {
+        $line++;
+        next unless $example_started != 0 || /^$comment_char example-(file|dir|start|end)/;
+        if (/^$comment_char example-start$/) {
+            print STDERR "Warning: double example start in {{filename}}  $line\n" if ($example_started != 0);
+            $example_started = 1;
+            next;
+        }
+
+        if (/$comment_char example-end$/) {
+            print STDERR "Warning: superfluous example-end in {{filename}} $line\n" if ($example_started != 1);
+            $example_started = 0;
+            next;
+        }
+
+        if (/^$comment_char example-(file|dir)/) {
+            my $fn;
+            if (/^$comment_char example-file\s*=\s*"(.+)"/) {
+                $fn = $1;
+            } elsif (/^$comment_char example-file\s*=\s*\self\s*$/) {
+                $fn =~ s,^{{dotfiles}}/{{start_location}}/,,g;
+            } elsif (/^$comment_char example-dir\s*=\s*"(.+)"\s*$/) {
+                $fn = "$1/" . basename("{{filename}}");
+            } else {
+                print STDERR "Warning: malformed example-file or -dir in {{filename}} $line\n";
+                next;
+            }
+
+            my $rfn = "{{output}}/$fn";
+            make_path(dirname($rfn)) if ($fn =~ /\//);
+            close $outfh if $outfh;
+            open($outfh, ">", $rfn) or die "Can't open > $rfn: $!";
+            next;
+        }
+
+        if (!$outfh) {
+            print STDERR "Warning: example-file not set yet in {{filename}} $line\n";
+            next;
+        }
+        print $outfh $_;
+    }
+    close $outfh if $outfh;
+    close $fh;
+    print STDERR "Warning: {{filename}} has no example-end\n" if ($example_started == 1);
+
+clean:
+	-cd {{output}} && rm -rf *
+
+diff:
+	cd {{output}} && git diff
+
+commit msg="Update examples":
+	cd {{output}} && \
+	  test -n "$(git status --porcelain)" && { \
+	  git add . && \
+	  git commit -m "{{msg}}"; } || exit 0
+
+push:
+    cd {{output}} && test -n "$(git log --branches --not --remotes)" && git push || exit 0
