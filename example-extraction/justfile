@@ -9,7 +9,7 @@ default: extract-all
 
 extract-all: clean copy-static-files && diff
     cat {{files}} | while read start_location comment_char filename_pattern ; do \
-        just extract $start_location $comment_char $filename_pattern; \
+        just extract $start_location "$comment_char" $filename_pattern; \
     done
 
 copy-static-files:
@@ -22,7 +22,7 @@ extract start_location comment_char filename_pattern:
         -o -name  vimfiles-Debian \
         -o -path examples/src \
         \) -prune -o \
-        -type f -name "{{filename_pattern}}" -print) ; do just extract-file $f {{comment_char}} {{start_location}}; done
+        -type f -name "{{filename_pattern}}" -print) ; do just extract-file $f "{{comment_char}}" {{start_location}}; done
 
 extract-file filename comment_char start_location:
     #!/usr/bin/perl

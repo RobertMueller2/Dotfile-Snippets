@@ -59,6 +59,12 @@ Powershell module to support [OneIM](https://www.oneidentity.com/products/identi
 
 The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none of those are public yet but will be later.
 
+### Waybar
+
+Various stuff, but nothing spectacular. Worth noting might be the custom wayeyes module which indicates whether the focused node is `xdg_shell`, `xwayland` or somethign else.
+
+Uses sway-helper.sh, waybar-wayland-helper.sh and waybarhelper, none of which are public yet. I'll share them after a clean up.
+
 ### Windows Basics
 
 - `rtc-is-utc.ps1`: Windows's default is to assume that hardware clock is local time, whereas Debian normally assumes that it is UTC. (I honestly couldn't tell if Debian asked me last time I installed it. I don't need reinstalls, so the last time is quite a while ago.) Another reason why dual booting sucks, but I really can't afford two gaming laptops. Fortunately, both Windows and Debian allow changing this. Since I only use my Windows installation to update it, the installed software and of course the laptop firmware, Debian wins.
