@@ -16,6 +16,17 @@ This is a WIP and the repository should grow in the future. Not all examples wil
 
 Powershell profile working for both Windows and Linux.
 
+#### Adm
+
+Provides checks:
+
+- git repositories with uncommitted changes, no remotes or commits not on remote
+- home dir check that lists files in folders that are neither cloud synced nor belong to a git repo
+  - the paths are controlled in `$HOME\homewatch.ini`, there's an example in Windows-Basics.
+  - I run this on a 15 mins schedule together with a VBScript helper (see Windows Basics)
+- create desktop icon for firefox that starts the profile manager. In the past, firefox upgrades have sometimes removed my icon and it annoyed me so much I had to script
+- copy OneIM installers and documentation to my nas. This had better gone into the OneIM module, but now it's here. Tough.
+
 #### CoreUtils module
 
 Adds alias for commands available from [CoreUtils](https://github.com/uutils/coreutils) with a few exceptions.
@@ -47,3 +58,8 @@ Powershell module to support [OneIM](https://www.oneidentity.com/products/identi
 ### Sway
 
 The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none of those are public yet but will be later.
+
+### Windows Basics
+
+- `rtc-is-utc.ps1`: Windows's default is to assume that hardware clock is local time, whereas Debian normally assumes that it is UTC. (I honestly couldn't tell if Debian asked me last time I installed it. I don't need reinstalls, so the last time is quite a while ago.) Another reason why dual booting sucks, but I really can't afford two gaming laptops. Fortunately, both Windows and Debian allow changing this. Since I only use my Windows installation to update it, the installed software and of course the laptop firmware, Debian wins.
+- homecheck scripts (see Adm module): one to register the home check as a schedule, one vbs script to avoid a flickering powershell window, and one to invoke the checks provided by the Adm module
