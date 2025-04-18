@@ -18,7 +18,7 @@ If I feel like there's been enough commits, I'll replace the history with a squa
 
 This is the magic that extracts shareable stuff from my Dotfiles repo.
 
-p.S.: It'd be rude not to use just's interpreter feature for this, but there's a downside: Github does not recognize inline language of the recipes. So let me state that here, the magic is done by perl.
+p.S.: It'd be rude not to use [just](https://github.com/casey/just)'s interpreter feature for this, but there's a downside: Github does not recognize inline language of the recipes. So let me state that here, the magic is done by perl.
 
 ### Powershell
 
