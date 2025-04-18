@@ -61,7 +61,7 @@ The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none o
 
 ### Waybar
 
-Various stuff, but nothing spectacular. Worth noting might be the custom wayeyes module which indicates whether the focused node is `xdg_shell`, `xwayland` or something else, as well as the modules that watch homedir and git repositories for files that are not in the cloud, `_volatile` subdir or added to git.
+Various stuff, but nothing spectacular. Worth noting might be the custom wayeyes module which indicates whether the focused node is `xdg_shell`, `xwayland` or something else, as well as the modules that watch homedir and git repositories for files that are not in the cloud, `_volatile` subdir or added to git. Note to self: write cffi module for wayeyes use case.
 
 Uses sway-helper.sh, waybar-wayland-helper.sh and waybarhelper, none of which are public yet. I'll share them after a clean up.
 
