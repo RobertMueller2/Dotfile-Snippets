@@ -6,7 +6,7 @@ This repository contains extracted examples from my dotfiles for reference purpo
 
 Many people make their whole dotfiles repository public. Personally, I don't feel comfortable with that. Some things are WIP, some might even never get finished. Some things in my dotfiles might be outright embarassing. :P It's also easy to share security relevant info by accident.
 
-I do think though that some parts of my dotfiles ARE worth sharing. So instead of sharing everything, I extract relevant parts of my dotfiles and place them in this repository.
+I do think though that some parts of my dotfiles ARE worth sharing. So instead of sharing everything, I extract relevant parts and place them in this repository.
 
 This is a WIP and the repository should grow in the future. Not all examples will be complete, so they might not immediately work alone. This is intended. However, the examples should make sense or there is no point in sharing them, so if you stumble across anything that makes no sense without the missing bits, feel free to open an issue. This is a spare time activity so responding to those might take time, especially if I need to clean up the missing bits first.
 
