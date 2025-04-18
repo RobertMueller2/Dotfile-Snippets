@@ -10,6 +10,8 @@ I do think though that some parts of my dotfiles ARE worth sharing. So instead o
 
 This is a WIP and the repository should grow in the future. Not all examples will be complete, so they might not immediately work alone. This is intended. However, the examples should make sense or there is no point in sharing them, so if you stumble across anything that makes no sense without the missing bits, feel free to open an issue. This is a spare time activity so responding to those might take time, especially if I need to clean up the missing bits first.
 
+If I feel like there's been enough commits, I'll replace the history with a squash commit. Since everything is generated, there really isn't any benefit to a history.
+
 ## Some remarks regarding the shared parts
 
 ### Powershell
