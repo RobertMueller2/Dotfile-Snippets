@@ -18,7 +18,7 @@ If I feel like there's been enough commits, I'll replace the history with a squa
 
 This is the magic that extracts shareable stuff from my Dotfiles repo.
 
-p.S.: It'd be rude not to use [just](https://github.com/casey/just)'s interpreter feature for this, but there's a downside: Github does not recognize inline language of the recipes. So let me state that here, the magic is done by perl.
+p.S.: It'd be rude not to use [just](https://github.com/casey/just)'s interpreter feature for this, but there's a downside: Github does not recognize inline language of the recipes. So let me state that here, the heavy lifting is done by a perl script.
 
 ### Powershell
 
@@ -65,7 +65,15 @@ Powershell module to support [OneIM](https://www.oneidentity.com/products/identi
 ```
 ### Sway
 
-The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none of those are public yet but will be later.
+The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none of those are public yet but will be later after a clean up.
+
+A few highlights, from top of my head:
+
+- help/cheatsheet for the focused window. if it's foot, a menu is offered to select help for command line tools
+- help annotation in sway config, shift+win+F1 opens a terminal that shows keybindings and modes (using sway-helper.sh, not public yet)
+- win+c allows to enter arbitrary swaymsg commands
+- "Quake" drop down terminal (still has minor timing issues on first start)
+- digital image frame
 
 ### Waybar
 
