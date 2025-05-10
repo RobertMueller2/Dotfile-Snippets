@@ -1,0 +1,23 @@
+{
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}%<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span> {format_source}",
+        "format-muted": "<span font_family=\"Font Awesome 6 Free Solid\"></span> {format_source}",
+        "format-bluetooth": "{volume}%<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span> {format_source}",
+        "format-bluetooth-muted": "<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span> {format_source}",
+        "format-source": "{volume}%<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "format-source-muted": "<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click-right": "pavucontrol",
+        "on-click-middle": "sway-helper.sh audio_set_app_sink",
+        "on-click": "qpwgraph"
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "memory": {
+        "format": "",
+        "format-alt": "{}%",
+        "format-warning": "{}%",
+        "format-critical": "{}%",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    }
+}
