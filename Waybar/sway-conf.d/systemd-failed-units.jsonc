@@ -1,0 +1,9 @@
+{
+    "systemd-failed-units": {
+        "hide-on-ok": false,
+        "format": "✗ {nr_failed_system} System, {nr_failed_user} User",
+        "format-ok": "✓",
+        "system": true,
+        "user": true
+    }
+}

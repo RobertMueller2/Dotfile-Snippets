@@ -1,0 +1,7 @@
+{
+    "custom/kernel": {
+        "exec": "test -z \"$_RO_SHELL_QUIET\" && uname -r",
+        "format": "{}",
+        "interval": "3600"
+    }
+}
