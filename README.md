@@ -104,11 +104,12 @@ The config makes use of wayland-helper.sh, sway-helper.sh and swayhelper, none o
 A few highlights, from top of my head:
 
 - help/cheatsheet for the focused window. if it's foot, a menu is offered to select help for command line tools
-- help annotation in sway config, shift+win+F1 opens a terminal that shows keybindings and modes (using sway-helper.sh, not public yet)
+- help annotation in sway config, shift+win+F1 opens a terminal that shows keybindings and modes (using sway-helper.sh)
   - I'm not that happy with how it's presented, the long term goal would be something more similar to awesomewm's help popup
 - win+c allows to enter arbitrary swaymsg commands
 - "Quake" drop down terminal (still has minor timing issues on first start)
 - digital image frame
+- passthrough mode to access nested wayland sessions
 
 ### Waybar
 
