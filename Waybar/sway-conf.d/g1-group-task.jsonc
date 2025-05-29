@@ -1,0 +1,10 @@
+{
+    "group/tasks" : {
+        "orientation":"inherit",
+        "drawer" : {
+            "click-to-reveal" : true,
+            "transition-duration": 500
+        },
+        "modules" : ["sway/window", "wlr/taskbar" ]
+    }
+}

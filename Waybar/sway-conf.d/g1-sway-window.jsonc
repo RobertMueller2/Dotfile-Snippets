@@ -1,0 +1,13 @@
+{
+    "sway/window": {
+        "format": "{title}[{marks}]", // requires https://github.com/Alexays/Waybar/pull/4097
+        "max-length": 50,
+        "all-outputs" : true,
+        "offscreen-css" : true,
+        "offscreen-css-text": "(inactive)",
+        "rewrite": {
+            "(.*) - Mozilla Firefox": " $1",
+            "(.*) - fish": "> [$1]"
+        }
+    }
+}
