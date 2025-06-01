@@ -1,0 +1,9 @@
+{
+    // consider states when custom modules offer them
+    "custom/df": {
+        "exec": "waybar-wayland-helper.sh custom_df",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    }
+}

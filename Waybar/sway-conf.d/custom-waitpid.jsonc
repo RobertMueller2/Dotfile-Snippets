@@ -1,0 +1,8 @@
+{
+    "custom/waitpid": {
+        "exec": "waybar-wayland-helper.sh custom_waitpid",
+        "return-type":"json",
+        "format": "<span font_family=\"Font Awesome 6 Free Solid\">{}</span>",
+        "interval": 5
+    }
+}
