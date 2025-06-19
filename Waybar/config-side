@@ -1,0 +1,12 @@
+{
+    "ipc": "false",
+    "id": "bar-0",
+    "layer": "bottom",
+    "position": "right", // Waybar position (top|bottom|left|right)
+    "height": 39, // Waybar height (to be removed for auto height)
+    "modules-left": ["privacy" ],
+    "modules-center": ["group/documents", "network", "systemd-failed-units", "cpu", "memory", "temperature", "custom/df", "sway/language", "pulseaudio", "backlight", "custom/weather"],
+    "include" : [
+        "~/.config/waybar/sway-conf.d/*.jsonc"
+    ],
+}

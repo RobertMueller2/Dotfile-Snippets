@@ -1,0 +1,172 @@
+// ironbar config is WIP
+let {
+
+    $bindmode = { type = "bindmode" }
+
+    $clock = { 
+        type = "clock"
+        format = "%Y-%m-%d %H:%M:%S"
+    }
+
+    $computer_label = {
+        type = "label"
+        label = "" // TODO: dynamic whether this is a laptop or desktop
+        class  = "computer-label"
+        tooltip = "{{30000:hostname}}\nLinux {{30000:uname -r}}"
+    }
+
+    $workspaces = {
+        type = "workspaces"
+        all_monitors = false
+        name_map = {
+             1= "1"
+             01= "01"
+             11= "11"
+             21= "21"
+             2 = "2"
+             02 = "02"
+             12 = "12"
+             21= "21"
+             3 = "3"
+             03 = "03"
+             13 = "13"
+             23 = "23"
+             4 = "4"
+             04 = "04"
+             14 = "14"
+             24 = "24"
+             5 = "5"
+             05 = "05"
+             15 = "15"
+             25 = "25"
+             6 = "6"
+             06 = "06"
+             16 = "16"
+             26 = "26"
+             7 = "7"
+             07 = "07"
+             17 = "17"
+             27 = "27"
+             8 = "8"
+             08 = "08"
+             18 = "18"
+             28 = "28"
+             9 = "9"
+             09 = "09"
+             19 = "19"
+             29 = "29"
+             default= ""        
+        }
+    }
+
+    $focused = {
+        type = "focused"
+        icon_size = 16
+        truncate = { 
+            mode = "end"
+            max_length = 150
+        }
+    }
+
+	$tasks_reveal_button = {
+		type = "button"
+		class = "tasks-hide-button"
+		on_click = "!if [ \"$(ironbar var get show_launcher)\" = \"1\" ]; then ironbar var set show_launcher 0; ironbar var set launcher_reveal 🗔►; else ironbar var set show_launcher 1; ironbar var set launcher_reveal ◄🗔; fi"
+		label = "#launcher_reveal"
+		tooltip = "show/hide taskbar"
+	}
+
+	$launcher = {
+		type = "launcher"
+		icon_size = 16
+		show_if = "#show_launcher"
+	}
+
+	$group_tasks = {
+		type = "custom"
+		class = "group-tasks"
+		bar = [ $focused $launcher $tasks_reveal_button ]
+	}
+
+    $idle_inhibit = {
+        type = "button"
+        label = "{{1000:pgrep -u $(id -u) wayhibitor > /dev/null && echo  || echo  }}"
+        on_click = "!pkill -u $(id -u) wayhibitor || exec wayhibitor"
+    }
+ 
+    $idle = {
+        type = "custom"
+        class = "idle"
+        bar = [ $idle_inhibit ]
+    }
+
+	$keyboard = {
+		type = "keyboard"
+		icon_size = 16
+        icons.layout_map.'English (US)' = "🇺🇸"
+        icons.layout_map.'German (no dead keys)' = "🇩🇪"
+	}
+
+    $music = {
+        type = "music"
+        player_type = "mpris"
+        truncate = "end"
+    }
+
+    $power_menu_button = {
+        type = "button"
+        name = "power-button"
+        label = "<span font_family=\"Font Awesome 6 Free Solid\"></span>" on_click = "!exec wlogout"
+    }
+
+    $power_menu = {
+        type = "custom"
+        class = "power-menu"
+        bar = [ $power_menu_button ]
+        tooltip = "{{30000:uptime -p | cut -d ' ' -f2-}}"
+    }
+
+    $process = {
+        type = "label"
+        show_if = "1000:test -n \"$(watch-processes.sh cleanup >/dev/null 2>&1; watch-processes.sh watch)\""
+        label = ""
+        tooltip = "{{1000:watch-processes.sh watch}}\n"
+    }
+
+    $scratchpad = {
+        type = "label"
+        class = "scratchpad"
+        label = "{{1000:sway-helper get_scratch_window_count}}"
+        tooltip = "{{1000:sway-helper get_scratch_window_list}}\n"
+    }
+
+    $tray = { type = "tray" }
+
+
+    $upower = { type = "upower" }
+
+	// not ideal yet, might need a native module in the long run
+	$wayeyes = {
+		type = "label"
+		class = "wayeyes"
+		label = "{{watch:waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
+	}
+
+    $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
+    $center = [ $group_tasks $music ]
+    $end = [ $keyboard $upower $clock $tray ]
+}
+
+in {
+	ironvar_defaults.show_launcher = "0"
+	ironvar_defaults.launcher_reveal = "🗔►"
+    position = "top"
+    anchor_to_edges = true
+    height = 28
+    layer = "top"
+    name = "main"
+  
+    start = $left
+    center = $center
+    end= $end
+}
