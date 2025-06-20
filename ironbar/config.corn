@@ -71,7 +71,8 @@ let {
 	$tasks_reveal_button = {
 		type = "button"
 		class = "tasks-hide-button"
-		on_click = "!if [ \"$(ironbar var get show_launcher)\" = \"1\" ]; then ironbar var set show_launcher 0; ironbar var set launcher_reveal 🗔►; else ironbar var set show_launcher 1; ironbar var set launcher_reveal ◄🗔; fi"
+        // characters used to indicate the drawer need revisiting
+		on_click = "!ironbar-helper.sh toggle-var show_launcher 0 1; ironbar-helper.sh set-var-dependent show_launcher launcher_reveal \"◄🗔\" \"🗔►\""
 		label = "#launcher_reveal"
 		tooltip = "show/hide taskbar"
 	}
@@ -140,7 +141,10 @@ let {
         tooltip = "{{1000:sway-helper get_scratch_window_list}}\n"
     }
 
-    $tray = { type = "tray" }
+    $tray = {
+        type = "tray"
+        icon_size = 16
+    }
 
 
     $upower = { type = "upower" }
