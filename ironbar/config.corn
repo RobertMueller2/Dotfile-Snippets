@@ -89,16 +89,35 @@ let {
         bar = [ $focused $launcher $tasks_reveal_button ]
     }
 
+    // idle_watch currently not published
+    // TODO: use something without color
+    $idle_state = {
+        type = "label"
+        class = "idle-state"
+        label = "{{watch:exec idle_watch --timeout 2000 --idle \"💤\" --resume \"🏃\" --initial-output \"🏃\"}}"
+    }
+
+    // the idea here is to have apps/user inhibitors as reported by sway
+    // needs to include systemd-inhibit somehow
+    // tooltip could contain more details, probably best to work with vars.
+    // not done yet, obviously :p
+    // #TODO
+    $idle_inhibitor_counter = {
+        type = "label"
+        class = "idle-inhibitor-counter"
+        label = "0/0"
+    }
+
     $idle_inhibit = {
         type = "button"
-        label = "{{1000:pgrep -u $(id -u) wayhibitor > /dev/null && echo  || echo  }}"
-        on_click = "!pkill -u $(id -u) wayhibitor || exec wayhibitor"
+        label = "{{1000:pgrep -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" > /dev/null && echo  || echo  }}"
+        on_click = "!pkill -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" || exec blankwindow-gtk-rs --app-id idle.inhibitor"
     }
  
     $idle = {
         type = "custom"
         class = "idle"
-        bar = [ $idle_inhibit ]
+        bar = [ $idle_state $idle_inhibitor_counter $idle_inhibit ]
     }
 
     // does currently not work
@@ -154,7 +173,7 @@ let {
     $wayeyes = {
         type = "label"
         class = "wayeyes"
-        label = "{{watch:waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
+        label = "{{watch:exec waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
     }
 
     $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
