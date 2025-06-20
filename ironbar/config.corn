@@ -55,7 +55,7 @@ let {
              09 = "09"
              19 = "19"
              29 = "29"
-             default= ""        
+             default= ""
         }
     }
 
@@ -68,26 +68,26 @@ let {
         }
     }
 
-	$tasks_reveal_button = {
-		type = "button"
-		class = "tasks-hide-button"
+    $tasks_reveal_button = {
+        type = "button"
+        class = "tasks-hide-button"
         // characters used to indicate the drawer need revisiting
-		on_click = "!ironbar-helper.sh toggle-var show_launcher 0 1; ironbar-helper.sh set-var-dependent show_launcher launcher_reveal \"◄🗔\" \"🗔►\""
-		label = "#launcher_reveal"
-		tooltip = "show/hide taskbar"
-	}
+        on_click = "!ironbar-helper.sh toggle-var show_launcher 0 1; ironbar-helper.sh set-var-dependent show_launcher launcher_reveal \"◄🗔\" \"🗔►\""
+        label = "#launcher_reveal"
+        tooltip = "show/hide taskbar"
+    }
 
-	$launcher = {
-		type = "launcher"
-		icon_size = 16
-		show_if = "#show_launcher"
-	}
+    $launcher = {
+        type = "launcher"
+        icon_size = 16
+        show_if = "#show_launcher"
+    }
 
-	$group_tasks = {
-		type = "custom"
-		class = "group-tasks"
-		bar = [ $focused $launcher $tasks_reveal_button ]
-	}
+    $group_tasks = {
+        type = "custom"
+        class = "group-tasks"
+        bar = [ $focused $launcher $tasks_reveal_button ]
+    }
 
     $idle_inhibit = {
         type = "button"
@@ -101,12 +101,13 @@ let {
         bar = [ $idle_inhibit ]
     }
 
-	$keyboard = {
-		type = "keyboard"
-		icon_size = 16
+    // does currently not work
+    $keyboard = {
+        type = "keyboard"
+        icon_size = 16
         icons.layout_map.'English (US)' = "🇺🇸"
         icons.layout_map.'German (no dead keys)' = "🇩🇪"
-	}
+    }
 
     $music = {
         type = "music"
@@ -149,12 +150,12 @@ let {
 
     $upower = { type = "upower" }
 
-	// not ideal yet, might need a native module in the long run
-	$wayeyes = {
-		type = "label"
-		class = "wayeyes"
-		label = "{{watch:waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
-	}
+    // not ideal yet, might need a native module in the long run
+    $wayeyes = {
+        type = "label"
+        class = "wayeyes"
+        label = "{{watch:waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
+    }
 
     $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
     $center = [ $group_tasks $music ]
@@ -162,14 +163,14 @@ let {
 }
 
 in {
-	ironvar_defaults.show_launcher = "0"
-	ironvar_defaults.launcher_reveal = "🗔►"
+    ironvar_defaults.show_launcher = "0"
+    ironvar_defaults.launcher_reveal = "🗔►"
     position = "top"
     anchor_to_edges = true
     height = 28
     layer = "top"
     name = "main"
-  
+
     start = $left
     center = $center
     end= $end
