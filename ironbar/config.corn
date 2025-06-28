@@ -184,7 +184,7 @@ let {
 in {
     ironvar_defaults.show_launcher = "0"
     ironvar_defaults.launcher_reveal = "🗔►"
-    position = "top"
+    position = "bottom"
     anchor_to_edges = true
     height = 28
     layer = "bottom"
