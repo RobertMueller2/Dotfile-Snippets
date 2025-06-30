@@ -26,7 +26,7 @@ git_loop remotes > $BASEDIR/git-remotes
 DOCS="${HOME}/Dokumente"
 if [ -e "$DOCS" ]; then
   $FIND "$DOCS" -maxdepth 1 -type f > $BASEDIR/files-documents
-  $FIND "$DOCS" -mindepth 1 -maxdepth 1 -type d -o -type l | grep -v "\(_annex\|_games\|_projects\|_sync\|TraktorPro3\|_volatile\|LINQPad\)" >> $BASEDIR/files-documents
+  $FIND "$DOCS" -mindepth 1 -maxdepth 1 -type d -o -type l | grep -v "\(\.oneim\|_annex\|_games\|_projects\|_sync\|TraktorPro3\|_volatile\|LINQPad\)" >> $BASEDIR/files-documents
 fi 
 
 PICS="${HOME}/Bilder"
