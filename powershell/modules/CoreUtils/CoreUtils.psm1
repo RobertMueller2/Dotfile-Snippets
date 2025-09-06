@@ -2,7 +2,7 @@ Import-Module Helpers
 
 if (Get-Command coreutils.exe -ErrorAction SilentlyContinue) {
     $coreutils = $(Get-Command coreutils.exe).Source
-    $blocklist = @{"["="ignore"; "cp"="builtin"; "dir"="builtin"; "echo"="bultin"; "sleep"="builtin"; "sort"="prefix"; "tee"="prefix"; "tr"="skip-if-path"; }
+    $blocklist = @{"["="ignore"; "cp"="builtin"; "dir"="builtin"; "echo"="bultin"; "sleep"="builtin"; "sort"="prefix"; "tee"="prefix"; "tr"="skip-if-path"; "link"="ignore"; }
 }
   
 if ($null -ne $coreutils) {
