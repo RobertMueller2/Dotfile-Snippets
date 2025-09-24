@@ -1,0 +1,67 @@
+{
+    "group/documents" : {
+        "orientation":"inherit",
+        "drawer" : {
+            "click-to-reveal" : true,
+            "transition-duration": 500
+        },
+        "modules" : [
+            "custom/documents-summary",
+            "custom/files-documents",
+            "custom/files-downloads",
+            "custom/files-pictures",
+            "custom/files-videos",
+            "custom/git-uncommitted",
+            "custom/git-ahead",
+            "custom/git-remotes"
+        ]
+    },
+    "custom/documents-summary": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch_summary",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/files-documents": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch files-documents",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/files-downloads": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch files-downloads",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/files-pictures": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch files-pictures",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/files-videos": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch files-videos",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/git-uncommitted": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch git-uncommitted '^--$'",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/git-ahead": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch git-ahead '^/.\\+$'",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    },
+    "custom/git-remotes": {
+        "exec": "exec waybar-wayland-helper.sh custom_watch git-remotes '^.\\+$'",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 60
+    }
+}

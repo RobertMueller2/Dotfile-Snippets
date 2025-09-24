@@ -1,0 +1,18 @@
+{
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{signalStrength}%<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "tooltip-format-wifi": "{ifname}: {ipaddr}/{cidr} {essid} ({signalStrength}%)",
+
+//        "format-ethernet": "{ifname}: {ipaddr}/{cidr} <span font_family=\"FontAwesome\"></span>",
+        "format-ethernet": "<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+
+//        "format-linked": "{ifname} (No IP) <span font_family=\"FontAwesome\"></span>",
+        "format-linked": "(No IP) <span font_family=\"FontAwesome\"></span>",
+        "format-disconnected": "<span font_family=\"FontAwesome\">⚠</span>",
+        "format-alt": "{ifname}:{ipaddr}/{cidr}",
+
+        "on-click-right": "nm-connection-editor"
+    }
+}

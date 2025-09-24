@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SCRIPT=$(readlink -f $0)
+SDIR=$(dirname ${SCRIPT})
+REPO=${SDIR}/../../..
+
+# allow reading confirmation via just, otherwise the hook is non-interactive
+${REPO}/example-extraction/post-commit-update.sh </dev/tty
+${REPO}/scripts/sh/generate-sh-script-documentation.sh
+

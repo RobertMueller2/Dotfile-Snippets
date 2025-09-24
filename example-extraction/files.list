@@ -1,0 +1,16 @@
+. justfile #
+. *.just #
+dotconfig/sway config #
+dotconfig/sway *.conf #
+. *.ps1 #
+. *.psm1 #
+. *.sh #
+. *.vbs '
+dotconfig/waybar config* //
+dotconfig/waybar *.css /* */
+dotconfig/waybar/sway-conf.d *.jsonc //
+dotconfig/ironbar *.corn //
+dotconfig/ironbar *.css /* */
+_hooks * #
+rainmeter *.ini ;
+rainmeter *.lua --

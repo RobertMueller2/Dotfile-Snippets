@@ -1,0 +1,21 @@
+{
+    "ipc": "true",
+    "id": "bar-0",
+    "layer": "bottom",
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 39, // Waybar height (to be removed for auto height)
+    "modules-left": ["custom/powerbutton", "custom/hostname", "custom/kernel", "custom/uptime", "custom/waitpid", "sway/workspaces", "sway/scratchpad", "custom/wayeyes", "sway/mode", "idle_inhibitor", "privacy" ],
+    "modules-center": ["group/tasks", "mpris"],
+    "modules-right": ["group/documents", "network", "systemd-failed-units", "cpu", "memory", "temperature", "custom/df", "sway/language", "battery", "pulseaudio", "backlight", "tray", "custom/weather", "clock"],
+    "include" : [
+        "~/.config/waybar/sway-conf.d/*.jsonc"
+    ],
+    // unused/deprecated
+    // waiting for custom alt-format
+    "custom/asusfan": {
+        "exec": "waybar-wayland-helper.sh custom_asusfan",
+        "return-type":"json",
+        "format": "{}<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "interval": 5,
+    },
+}
