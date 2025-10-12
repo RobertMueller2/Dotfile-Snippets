@@ -167,7 +167,7 @@ let {
     }
 
 
-    $upower = { type = "upower" }
+    $battery = { type = "battery" }
 
     // not ideal yet, might need a native module in the long run
     $wayeyes = {
@@ -178,7 +178,7 @@ let {
 
     $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
     $center = [ $group_tasks $music ]
-    $end = [ $keyboard $upower $clock $tray ]
+    $end = [ $keyboard $battery $clock $tray ]
 }
 
 in {

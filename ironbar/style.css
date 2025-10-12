@@ -126,6 +126,11 @@ button:hover {
     background-color: @base02;
 }
 
+menuitem label,
+.popup-tray label {
+    color: @color_text2;
+}
+
 .wayeyes {
     padding-left: 4px;
     padding-right: 4px;
