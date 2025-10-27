@@ -94,7 +94,7 @@ git_ahead () {
 
     # list anything that is not pushed, but exclude annex's views and things starting with _PR_,
     # use the latter locally to review other people's PRs.
-    out=$(git log --exclude=views\* --exclude=\*.bak --exclude=git-annex --exclude=_PR_\* --branches --not --remotes --pretty="format:%h %d %s (%aN)". 2>&1)
+    out=$(git log --exclude=views\* --exclude=\*.bak --exclude=git-annex --exclude=_PR_\* --exclude=_pr_\* --branches --not --remotes --pretty="format:%h %d %s (%aN)". 2>&1)
     if [ -z "$out" ]; then
         return
     fi
