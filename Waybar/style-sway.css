@@ -1,0 +1,300 @@
+/**
+ * solarized dark colorscheme:
+ *
+ * base03    #002b36
+ * base02    #073642
+ * base01    #586e75
+ * base00    #657b83
+ * base0     #839496
+ * base1     #93a1a1
+ * base2     #eee8d5
+ * base3     #fdf6e3
+ * yellow    #b58900
+ * orange    #cb4b16
+ * red       #dc322f
+ * magenta   #d33682
+ * violet    #6c71c4
+ * blue      #268bd2
+ * cyan      #2aa198
+ * green     #859900
+ */
+
+* {
+    border-radius: 0;
+    /* font-family: cozette; */
+    /*font-family: terminus; */
+    font-family: "DIN 1541 Engschrift";
+    min-height: 0;
+}
+
+
+window#waybar {
+    background: transparent;
+}
+
+window > box {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgba(120,120,120,0.75);  /* transparent */
+}
+
+#workspaces {
+    /* margin-top: 8px; */
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#workspaces button,
+#custom-scratchcount,
+#scratchpad {
+    padding-left: 3px;
+    padding-right: 3px;
+    color: #073642; /*base02*/
+    background-color: #eee8d5; /* base2 */
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+    color: #eee8d5; /* base2 */
+    background: #073642; /*base02*/
+}
+
+#workspaces button.focused {
+    color: #073642; /*base02*/
+    background-color: #cb4b16; /* orange */
+}
+
+#workspaces button.focused:hover {
+    color: #eee8d5; /* base2 */
+    background-color: #cb4b16; /* orange */
+}
+
+
+#workspaces button.urgent {
+    background-color: #eee8d5;
+}
+
+#tray {
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: rgba(0, 43, 54, 0.75 ); /* base03 */
+}
+
+#clock {
+    margin-left: 0px;
+    border-left: 0px;
+}
+
+#clock,
+#battery,
+#pulseaudio,
+#language,
+#battery,
+#idle_inhibitor,
+#backlight,
+#custom-clock,
+#cpu,
+#mode,
+#memory,
+#network,
+#temperature,
+#custom-asusfan,
+#custom-df,
+#custom-hostname,
+#custom-powerbutton,
+#custom-uptime,
+#custom-wayeyes,
+#custom-waitpid,
+#custom-documents-summary,
+#custom-git-ahead,
+#custom-git-remotes,
+#custom-git-uncommitted,
+#custom-files-documents,
+#custom-files-downloads,
+#custom-files-pictures,
+#custom-files-videos,
+#custom-weather,
+#privacy-item,
+#systemd-failed-units {
+    padding: 1px 5px;
+    color: #fdf6e3; /*base3*/
+}
+
+#custom-kernel {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 0px;
+    padding-right: 0px;
+    color: #fdf6e3; /*base3*/
+}
+
+#custom-asusfan:hover,
+#custom-df:hover,
+#custom-hostname:hover,
+#custom-powerbutton:hover,
+#custom-uptime:hover,
+#custom-waitpid:hover,
+#custom-wayeyes:hover,
+#custom-documents-summary:hover,
+#custom-git-ahead:hover,
+#custom-git-remotes:hover,
+#custom-git-uncommitted:hover,
+#custom-files-documents:hover,
+#custom-files-downloads:hover,
+#custom-files-pictures:hover,
+#custom-files-videos:hover,
+#custom-weather:hover,
+#systemd-failed-units:hover,
+#clock:hover,
+#battery:hover,
+#pulseaudio:hover,
+#language:hover,
+#idle_inhibitor:hover,
+#backlight:hover,
+#cpu:hover,
+#network:hover,
+#memory:hover,
+#temperature:hover,
+#privacy:hover {
+    color: #eee8d5; /* base2 */
+    background-color: #cb4b16; /* orange */
+
+}
+
+/* FIXME: empty output */
+disabledwindow#waybar.empty #window {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+/*  background-color: rgba(66,66,66,0.5); */ /* transparent */
+  background-color: transparent;
+}
+
+disabledwindow#waybar.solo #window {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background: #073642; /*base02*/
+}
+
+#disabledwindow {
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #cb4b16; /* orange */
+}
+
+
+
+/* FIXME: empty output */
+window#waybar.empty #window {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+/*  background-color: rgba(66,66,66,0.5); */ /* transparent */
+  background-color: transparent;
+}
+
+window#waybar.solo #window,
+#mpris.paused {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background-color: #073642; /*base02*/
+}
+
+window#waybar.floating #window {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background-color: #b58900; /*yellow*/
+}
+
+window#waybar.tiled #window,
+#mpris.stopped {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background-color: #cb4b16; /* orange */
+
+}
+
+window#waybar.stacked #window {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background: #2aa196; /*cyan*/
+}
+window#waybar.tabbed #window,
+#mpris.playing {
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #eee8d5; /* base2 */
+    background: #859900; /*green*/
+}
+
+/*
+#temperature,
+#clock,
+#custom-clock {
+    margin-right: 4px;
+} */
+
+#battery.warning,
+#cpu.warning,
+#memory.warning,
+#custom-asusfan.warning,
+#custom-df.warning,
+#custom-wayeyes.xwayland,
+#custom-waitpid.warning,
+#custom-documents-summary.warning,
+#custom-git-uncommitted.warning,
+#custom-git-ahead.warning,
+#custom-git-remotes.warning,
+#custom-files-documents.warning,
+#custom-files-downloads.warning,
+#custom-files-pictures.warning,
+#custom-files-videos.warning {
+/*    border: 1px solid #b58900; */ /*yellow*/
+    background-color: #b58900; /*yellow*/
+
+}
+
+#systemd-failed-units.degraded,
+#battery.critical,
+#cpu.critical,
+#memory.critical,
+#temperature.critical,
+#custom-asusfan.critical,
+#custom-df.critical,
+#custom-wayeyes.unknown, 
+#custom-documents-summary.critical,
+#custom-git-uncommitted.critical,
+#custom-git-ahead.critical,
+#custom-git-remotes.critical,
+#custom-files-documents.critical,
+#custom-files-downloads.critical,
+#custom-files-pictures.critical,
+#custom-files-videos.critical {
+    /* border: 1px solid #dc322f;*/ /*red*/
+    background-color: #dc322f; /*red*/
+}
+
+
+#custom-asusfan.overboost {
+    background-color: #d33682; /* magenta */
+}
+
+#custom-asusfan.fullspeed {
+    background-color: #9971c4; /* violet2 */
+}
+
+#custom-asusfan.silent {
+    background-color: #268bd2; /* blue */
+}
+
+#mpris {
+}
+

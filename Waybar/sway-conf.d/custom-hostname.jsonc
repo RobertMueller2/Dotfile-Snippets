@@ -1,0 +1,7 @@
+{
+    "custom/hostname": {
+        "exec": "test -z \"$_RO_SHELL_QUIET\" && hostname",
+        "format": "{}",
+        "interval": "1800"
+    }
+}

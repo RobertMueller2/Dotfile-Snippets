@@ -1,0 +1,13 @@
+{
+    "backlight": {
+//        "format": "<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span>",
+//        "format-alt": "{percent}%<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span>",
+        "format": "{icon}",
+        "format-alt": "{percent}%{icon}",
+        "tooltip-format": "{percent}%{icon}",
+        "on-scroll-up": "light -A 5",
+        "on-scroll-down": "light -U 5",
+        // OK for now, would be nicer if they were just grey
+        "format-icons": ["🌑", "🌒", "🌓", "🌔", "🌕"]
+    }
+}

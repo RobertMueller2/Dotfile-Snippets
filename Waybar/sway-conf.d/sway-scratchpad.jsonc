@@ -1,0 +1,6 @@
+{
+    "sway/scratchpad": {
+      "show-empty": true,
+      "format":"{count}"
+    }
+}

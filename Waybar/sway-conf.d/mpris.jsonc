@@ -1,0 +1,21 @@
+{
+    "mpris":{
+        "format": "<span font_family=\"Font Awesome 6 Free Solid\">{player_icon} {status_icon}</span> {artist} - {title} {length}",
+        "format-stopped":"",
+        "player-icons": {
+            "default": "",
+            "mpv": "🎵",
+            "spotify": "",
+            "strawberry": ""
+        },
+        "status-icons": {
+            "playing": "▶",
+            "paused": "⏸",
+            "stopped": "⏹"
+        },
+        "tooltip-format": "<b>{player}</b>\n{title} {position}/{length}\n{artist} - {album}",
+//        "tooltip-with-markup": false,
+        "tooltip-format-stopped": ""
+        // "ignored-players": ["firefox"]            
+    }
+}

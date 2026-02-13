@@ -1,0 +1,12 @@
+{
+    "cpu": {
+        "format": "",
+        "format-alt": "{usage}%",
+        "format-warning": "{usage}%",
+        "format-critical": "{usage}%",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    }
+}

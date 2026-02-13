@@ -1,0 +1,141 @@
+# extracts shared sections for Dotfile-Snippets repository.
+
+dotfiles:=".."
+src:="src"
+output:="../../Dotfile-Snippets"
+files:="files.list"
+
+default: extract-all
+
+[confirm]
+extract-all: clean copy-static-files && diff
+    i=1 ;\
+    cat "{{files}}" | while read -r start_location filename_pattern comment_char comment_end_char; do \
+        just extract "$start_location" "$filename_pattern" "$comment_char" "$comment_end_char"; \
+    done
+
+# static files can be links to files that don't need any processing
+copy-static-files:
+    tar -chf - {{src}} | tar -xvPpf - --show-transformed-names --transform=s,^{{src}},{{output}},g
+
+extract start_location filename_pattern comment_char comment_end_char:
+    for f in $(find "{{dotfiles}}/{{start_location}}" \
+        \( -name "{{output}}" \
+        -o -name .git \
+        -o -name  vimfiles-Debian \
+        -o -path examples/src \
+        \) -prune -o \
+        -type f -name '{{filename_pattern}}' -print) ; do just extract-file "$f" "{{start_location}}" "{{comment_char}}" "{{comment_end_char}}"; done
+
+extract-file filename start_location comment_char comment_end_char="":
+    #!/usr/bin/perl
+    use strict;
+    use warnings;
+    use File::Path qw(make_path);
+    use File::Basename;
+
+    open (my $fh, "<", "{{filename}}") or die "Could not open {{filename}}: $!";
+    my $comment_char = quotemeta("{{comment_char}}");
+    my $comment_end_char = quotemeta("{{comment_end_char}}");
+    my $example_started = 0;
+    my $line = 0;
+    my @replace_pattern;
+    my $skipline = 0;
+    my $outfh;
+
+    while (<$fh>) {
+        $line++;
+        if ($skipline == 1) {
+            $skipline = 0;
+            next;
+        }
+
+        next unless $example_started != 0 || /^\s*$comment_char example-(file|dir|start|end)/;
+        if (/^\s*$comment_char example-start\s*($comment_end_char)?$/) {
+            print STDERR "Warning: double example start in {{filename}}  $line\n" if ($example_started != 0);
+            $example_started = 1;
+            next;
+        }
+
+        if (/\s*$comment_char example-end\s*($comment_end_char)?$/) {
+            print STDERR "Warning: superfluous example-end in {{filename}} $line\n" if ($example_started != 1);
+            $example_started = 0;
+            next;
+        }
+
+        if (/^\s*$comment_char example-(file|dir)/) {
+            my $fn;
+            if (/^\s*$comment_char example-file\s*=\s*"(.+)"\s*($comment_end_char)?$/) {
+                $fn = $1;
+            } elsif (/^\s*$comment_char example-file\s*=\s*\self\s*($comment_end_char)?$/) {
+                $fn =~ s,^{{dotfiles}}/{{start_location}}/,,g;
+            } elsif (/^\s*$comment_char example-dir\s*=\s*"(.+)"\s*($comment_end_char)?$/) {
+                $fn = "$1/" . basename("{{filename}}");
+            } else {
+                print STDERR "Warning: malformed example-file or -dir in {{filename}} $line\n";
+                next;
+            }
+
+            my $rfn = "{{output}}/$fn";
+            make_path(dirname($rfn)) if ($fn =~ /\//);
+            close $outfh if $outfh;
+            open($outfh, ">", $rfn) or die "Can't open > $rfn: $!";
+            next;
+        }
+
+        if (/^\s*$comment_char example-skip\s*($comment_end_char)?$/) {
+            $skipline = 1;
+            next;
+        }
+
+        # the fake and replacement patterns could be more robust
+        if (/^\s*$comment_char example-fake\s*@!@(.+)@!@\s*($comment_end_char)?$/) {
+            print $outfh "$1\n";
+            next;
+        }
+
+        if (/^\s*$comment_char example-replace\s*@!@(.+)@,@(.+)@!@\s*($comment_end_char)?$/) {
+            @replace_pattern = ( $1, $2 );
+            next;
+        }
+
+        if (!$outfh) {
+            print STDERR "Warning: example-file not set yet in {{filename}} $line\n";
+            next;
+        }
+
+        # FIXME: something here will replace double $ twice
+        if (@replace_pattern) {
+            s,$replace_pattern[0],$replace_pattern[1],g;
+            @replace_pattern = ();
+        }
+
+        print $outfh $_;
+    }
+    close $outfh if $outfh;
+    close $fh;
+    print STDERR "Warning: {{filename}} has no example-end\n" if ($example_started == 1);
+
+clean:
+	-cd {{output}} && rm -rf *
+
+diff:
+	cd {{output}} && git diff
+
+commit msg="Update examples":
+	cd {{output}} && \
+	  test -n "$(git status --porcelain)" && { \
+	  git add . && \
+	  git commit -m "{{msg}}"; } || exit 0
+
+push:
+    cd {{output}} && test -n "$(git log --branches --not --remotes)" && git push || exit 0
+
+[confirm]
+squash:
+    cd {{output}} && \
+        git checkout --orphan __temp__ && \
+        git add . && \
+        git commit -m "initial squash commit" && \
+        git branch -M main && git push --force
+

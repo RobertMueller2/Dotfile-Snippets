@@ -1,0 +1,15 @@
+{
+    "wlr/taskbar": { // depends on https://github.com/RobertMueller2/Waybar/tree/issue_3284
+      "format": "{icon} {title}",
+      "icon-size": 24,
+      "all-outputs": false,
+      "actions" : {
+          "on-click": "activate",
+          "on-click-middle": "close",
+          "on-click-right": "maximize"
+      },
+      "rewrite": {
+          "(^.{0,30})(.*)$": "$1…"
+      }
+    }
+}

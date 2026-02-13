@@ -1,0 +1,196 @@
+// ironbar config is WIP
+let {
+
+    $bindmode = { type = "bindmode" }
+
+    $clock = { 
+        type = "clock"
+        format = "%Y-%m-%d %H:%M:%S"
+    }
+
+    $computer_label = {
+        type = "label"
+        label = "" // TODO: dynamic whether this is a laptop or desktop
+        class  = "computer-label"
+        tooltip = "{{30000:hostname}}\nLinux {{30000:uname -r}}"
+    }
+
+    $workspaces = {
+        type = "workspaces"
+        all_monitors = false
+        name_map = {
+             1= "1"
+             01= "01"
+             11= "11"
+             21= "21"
+             2 = "2"
+             02 = "02"
+             12 = "12"
+             21= "21"
+             3 = "3"
+             03 = "03"
+             13 = "13"
+             23 = "23"
+             4 = "4"
+             04 = "04"
+             14 = "14"
+             24 = "24"
+             5 = "5"
+             05 = "05"
+             15 = "15"
+             25 = "25"
+             6 = "6"
+             06 = "06"
+             16 = "16"
+             26 = "26"
+             7 = "7"
+             07 = "07"
+             17 = "17"
+             27 = "27"
+             8 = "8"
+             08 = "08"
+             18 = "18"
+             28 = "28"
+             9 = "9"
+             09 = "09"
+             19 = "19"
+             29 = "29"
+             default= ""
+        }
+    }
+
+    $focused = {
+        type = "focused"
+        icon_size = 16
+        truncate = { 
+            mode = "end"
+            max_length = 150
+        }
+    }
+
+    $tasks_reveal_button = {
+        type = "button"
+        class = "tasks-hide-button"
+        // characters used to indicate the drawer need revisiting
+        on_click = "!ironbar-helper.sh toggle-var show_launcher 0 1; ironbar-helper.sh set-var-dependent show_launcher launcher_reveal \"◄🗔\" \"🗔►\""
+        label = "#launcher_reveal"
+        tooltip = "show/hide taskbar"
+    }
+
+    $launcher = {
+        type = "launcher"
+        icon_size = 16
+        show_if = "#show_launcher"
+    }
+
+    $group_tasks = {
+        type = "custom"
+        class = "group-tasks"
+        bar = [ $focused $launcher $tasks_reveal_button ]
+    }
+
+    // idle_watch currently not published
+    // TODO: use something without color
+    $idle_state = {
+        type = "label"
+        class = "idle-state"
+        label = "{{watch:exec idle_watch --timeout 2000 --idle \"💤\" --resume \"🏃\" --initial-output \"🏃\"}}"
+    }
+
+    // the idea here is to have apps/user inhibitors as reported by sway
+    // needs to include systemd-inhibit somehow
+    // tooltip could contain more details, probably best to work with vars.
+    // not done yet, obviously :p
+    // #TODO
+    $idle_inhibitor_counter = {
+        type = "label"
+        class = "idle-inhibitor-counter"
+        label = "0/0"
+    }
+
+    $idle_inhibit = {
+        type = "button"
+        label = "{{1000:pgrep -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" > /dev/null && echo  || echo  }}"
+        on_click = "!pkill -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" || exec blankwindow-gtk-rs --app-id idle.inhibitor"
+    }
+ 
+    $idle = {
+        type = "custom"
+        class = "idle"
+        bar = [ $idle_state $idle_inhibitor_counter $idle_inhibit ]
+    }
+
+    // does currently not work
+    $keyboard = {
+        type = "keyboard"
+        icon_size = 16
+        icons.layout_map.'English (US)' = "🇺🇸"
+        icons.layout_map.'German (no dead keys)' = "🇩🇪"
+    }
+
+    $music = {
+        type = "music"
+        player_type = "mpris"
+        truncate = "end"
+    }
+
+    $power_menu_button = {
+        type = "button"
+        name = "power-button"
+        label = "<span font_family=\"Font Awesome 6 Free Solid\"></span>" on_click = "!exec wlogout"
+    }
+
+    $power_menu = {
+        type = "custom"
+        class = "power-menu"
+        bar = [ $power_menu_button ]
+        tooltip = "{{30000:uptime -p | cut -d ' ' -f2-}}"
+    }
+
+    $process = {
+        type = "label"
+        show_if = "1000:test -n \"$(watch-processes.sh cleanup >/dev/null 2>&1; watch-processes.sh watch)\""
+        label = ""
+        tooltip = "{{1000:watch-processes.sh watch}}\n"
+    }
+
+    $scratchpad = {
+        type = "label"
+        class = "scratchpad"
+        label = "{{1000:sway-helper get_scratch_window_count}}"
+        tooltip = "{{1000:sway-helper get_scratch_window_list}}\n"
+    }
+
+    $tray = {
+        type = "tray"
+        icon_size = 16
+    }
+
+
+    $battery = { type = "battery" }
+
+    // not ideal yet, might need a native module in the long run
+    $wayeyes = {
+        type = "label"
+        class = "wayeyes"
+        label = "{{watch:exec waybar-helper wayeyes --format {icon} --xwayland-icon \"<span bgcolor='yellow' color='black'></span>\" --unknown-icon \"<span bgcolor='red'></span>\" }}"
+    }
+
+    $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
+    $center = [ $group_tasks $music ]
+    $end = [ $keyboard $battery $clock $tray ]
+}
+
+in {
+    ironvar_defaults.show_launcher = "0"
+    ironvar_defaults.launcher_reveal = "🗔►"
+    position = "bottom"
+    anchor_to_edges = true
+    height = 28
+    layer = "bottom"
+    name = "main"
+
+    start = $left
+    center = $center
+    end= $end
+}

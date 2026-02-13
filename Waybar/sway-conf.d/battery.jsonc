@@ -1,0 +1,18 @@
+{
+    "battery": {
+        "adapter":"/sys/class/power_supply/AC",
+        "battery":"/sys/class/power_supply/BAT0",
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span>",
+        "format-charging": "<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "format-plugged": "<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "format-alt": "{time}<span font_family=\"Font Awesome 6 Free Solid\">{icon}</span>",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    }
+}

@@ -1,0 +1,182 @@
+/* ironbar config is WIP */
+
+@define-color base03 #002b36;
+@define-color base02    #073642;
+@define-color base01    #586e75;
+@define-color base00    #657b83;
+@define-color base0     #839496;
+@define-color base1     #93a1a1;
+@define-color base2     #eee8d5;
+@define-color base3     #fdf6e3;
+@define-color yellow    #b58900;
+@define-color orange    #cb4b16;
+@define-color red       #dc322f;
+@define-color magenta   #d33682;
+@define-color violet    #6c71c4;
+@define-color blue      #268bd2;
+@define-color cyan      #2aa198;
+@define-color green     #859900;
+
+@define-color color_text #ffffff;
+@define-color color_text2 #000000;
+
+@keyframes blinker {
+  50% {
+    color: @violet;
+  }
+}
+
+* {
+    font-family: Noto Sans Nerd Font, sans-serif;
+    font-size: 16px; /* getting older sucks */
+    border: none;
+    border-radius: 0;
+    background-image: none;
+    box-shadow: none;
+    color: @base3;
+    text-shadow: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.background {
+    background-color: transparent;
+}
+
+#bar {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background-color: rgba(120, 120, 120, 0.75);
+}
+
+.widget-container box {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.popup,
+tooltip.background {
+    background-color: @base02;
+}
+
+button:hover {
+    color: @base2;
+    background-color: @base02;
+}
+
+/* bindmode */
+.bindmode {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* clock */
+
+.clock label {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.popup-clock .calendar-clock {
+    color: @base2;
+    font-size: 2.5em;
+    padding-bottom: 0.1em;
+}
+
+.popup-clock .calendar {
+    background-color: @base02;
+    color: @base2;
+}
+
+.popup-clock .calendar .header {
+    padding-top: 1em;
+    border-top: 1px solid @color_border;
+    font-size: 1.5em;
+}
+
+.popup-clock .calendar:selected {
+    background-color: @orange;
+	font-weight: bold;
+}
+
+/* focused */
+
+.focused {
+    color: @base2;
+    background-color: @orange;
+    padding:0;
+    margin: 0;
+}
+
+.idle {
+    background-color: transparent;
+}
+
+.scratchpad {
+    padding-left: 4px;
+    padding-right: 4px;
+    color: @base02;
+    background-color: @base2;
+}
+
+.tray {
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: @base02;
+}
+
+menuitem label,
+.popup-tray label {
+    color: @color_text2;
+}
+
+.wayeyes {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.wayeyes .label {
+	padding: 4px;
+	margin: 0px;
+}
+
+.workspaces .item {
+    padding: 0px;
+}
+
+.workspaces .item label {
+    padding-left: 2px;
+    padding-right: 2px;
+    color: @base02;
+    background-color: @base2;
+}
+
+.workspaces .item:hover label {
+    color: @base2;
+    background-color: @base02;
+}
+
+.workspaces .item.visible label {
+    background-color: @orange;
+}
+
+.workspaces .item.visible:hover label {
+    background-color: @orange;
+}
+
+.workspaces .item.urgent label {
+	animation: blinker 1s linear infinite;
+}
+
+.workspaces .item.urgent:hover label {
+	animation: blinker 1s linear infinite;
+
+}
+
+
+
+/*label {
+    color: @color_text;
+}*/
+

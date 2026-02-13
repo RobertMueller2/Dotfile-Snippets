@@ -1,0 +1,7 @@
+{
+    "custom/uptime": {
+        "exec": "waybar-wayland-helper.sh custom_uptime",
+        "format": "{}",
+        "interval": 60
+    }
+}

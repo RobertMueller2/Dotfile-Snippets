@@ -1,0 +1,7 @@
+{
+    "sway/language": {
+        "format": "<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "format-alt": "{flag}({variant})<span font_family=\"Font Awesome 6 Free Solid\"></span>",
+        "tooltip-format": "{long}"
+    }
+}
