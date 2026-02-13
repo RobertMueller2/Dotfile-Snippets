@@ -126,9 +126,16 @@ button:hover {
     background-color: @base02;
 }
 
-menuitem label,
-.popup-tray label {
-    color: @color_text2;
+/*old stuff
+ menuitem label,
+.popup-tray label */
+.tray popover modelbutton {
+    color: @color_text;
+    background-color: @base02;
+}
+
+.tray popover modelbutton:hover {
+    background-color: @orange;
 }
 
 .wayeyes {
