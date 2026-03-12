@@ -157,8 +157,8 @@ let {
     $scratchpad = {
         type = "label"
         class = "scratchpad"
-        label = "{{1000:sway-helper get_scratch_window_count}}"
-        tooltip = "{{1000:sway-helper get_scratch_window_list}}\n"
+        label = "{{1000:sway-helper get-scratch-window-count}}"
+        tooltip = "{{1000:sway-helper get-scratch-window-list}}\n"
     }
 
     $tray = {
