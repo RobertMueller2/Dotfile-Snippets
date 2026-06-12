@@ -1,5 +1,7 @@
 Import-Module Helpers
 
+Write-Warning "[DEPRECATED] The 'CoreUtils' module using cargo package for coreutils is deprecated. Install Microsoft.Coreutils via winget instead."
+
 if (Get-Command coreutils.exe -ErrorAction SilentlyContinue) {
     $coreutils = $(Get-Command coreutils.exe).Source
     $blocklist = @{"["="ignore"; "cp"="builtin"; "dir"="builtin"; "echo"="bultin"; "sleep"="builtin"; "sort"="prefix"; "tee"="prefix"; "tr"="skip-if-path"; "link"="ignore"; }

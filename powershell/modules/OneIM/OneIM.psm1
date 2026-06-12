@@ -238,8 +238,8 @@ Function VersionToVersionPath {
         -replace '^82$', '821' `
         -replace '^90$', '900' `
         -replace '^91$', '913' `
-        -replace '^92$', '921' `
-        -replace '^93$', '930'
+        -replace '^92$', '922' `
+        -replace '^93$', '931'
 }
 
 
@@ -258,8 +258,12 @@ Function Start-DockerDatabase {
         $version,
         [parameter(Position=1, Mandatory=$true)]
         [String]
-        $dbversion
+        $dbversion,
+		[switch]
+		$testinstance
     )
+	
+	$suffix = if ($testinstance) { "test" } else { "" }
 
     docker --context linux run --rm --name sql-$version --hostname sql-$version `
         --add-host=OneIMDB-${version}:127.0.0.1 `
@@ -267,10 +271,10 @@ Function Start-DockerDatabase {
         -e 'SA_PASSWORD=Pass_word1' `
         -e 'MSSQL_PID=Developer'  `
         -e 'MSSQL_AGENT_ENABLED=True' `
-        -v c:/OneIM/Containers/DB-${version}/data:/var/opt/mssql/data `
-        -v c:/OneIM/Containers/DB-${version}/log:/var/opt/mssql/log `
-        -v c:/OneIM/Containers/DB-${version}/secrets:/var/opt/mssql/secrets `
-        -v c:/OneIM/Containers/DB-${version}/backups:/var/opt/mssql/backup `
+        -v c:/OneIM/Containers/DB-${version}${suffix}/data:/var/opt/mssql/data `
+        -v c:/OneIM/Containers/DB-${version}${suffix}/log:/var/opt/mssql/log `
+        -v c:/OneIM/Containers/DB-${version}${suffix}/secrets:/var/opt/mssql/secrets `
+        -v c:/OneIM/Containers/DB-${version}${suffix}/backups:/var/opt/mssql/backup `
         -p 14${version}:1433 -d mcr.microsoft.com/mssql/server:${dbversion}-latest
 }
 
@@ -333,7 +337,9 @@ Function Start-DockerApiserver {
     Param (
         [parameter(Position=0, Mandatory=$true)]
         [Int]
-        $version
+        $version,
+        [string]
+        $LogLevel="Info"
     )
 
     $oiversion = VersionToVersionString $version
@@ -349,6 +355,7 @@ Function Start-DockerApiserver {
         --add-host=OneIMDB:host-gateway `
         -p 19${version}:$port `
         -e "DBSYSTEM=MSSQL" `
+        -e "FILE_LOGLEVEL=${LogLevel}" `
         -e "DEBUG=1" `
         -e "CONNSTRING=Data Source=OneIMDB-${version},14${version};Initial Catalog=OneIM;User ID=OneIM_Admin;Password=Pass_word1"  `
         -e "UPDATEUSER=Module=DialogUser;User=viadmin;password=Pass_word1" `
@@ -465,22 +472,31 @@ Function Start-WDockerApiserver {
     Param (
         [parameter(Position=0, Mandatory=$true)]
         [Int]
-        $version
+        $version,
+        [string]
+        $LogLevel="Info"
     )
 
     $oiversion = VersionToVersionString $version
     $hostadx = Get-WDockerHostAddress
 
+    $port=80
+    if ($version -ge 93) {
+      $port=8080
+    }
+
     docker --context windows run --rm --name wapiserver-${version} --hostname wapiserver-${version} `
-        -p 29${version}:80 `
+        -p 29${version}:${port} `
         -e "DBSYSTEM=MSSQL" `
         -e "DEBUG=1" `
+        -e "FILE_LOGLEVEL=${LogLevel}" `
         -e "CONNSTRING=Data Source=${hostadx},14${version};Initial Catalog=OneIM;User ID=OneIM_Admin;Password=Pass_word1"  `
         -e "UPDATEUSER=Module=DialogUser;User=viadmin;password=Pass_word1" `
         -e "APPSERVERCONNSTRING=URL=http://${hostadx}:17${version}/" `
         -e "TRUSTEDSOURCEKEY=D34db33F!" `
         -e "BASEURL=http://OneIMDB-${version}:29${version}/" `
         -v c:/OneIM/Containers/wapi-${version}/secrets:c:/ProgramData/Docker/secrets `
+        -v c:/OneIM/Containers/wapi-${version}/logs:c:/Logs `
         -d oneidentity/oneim-api:$oiversion
 }
 

@@ -40,7 +40,8 @@ Import-Module Adm
 Import-Module OneIM
 if (!$isLinux) {
     Import-Module MOTD
-    Import-Module CoreUtils
+    # deactivated, use Microsoft.Coreutils instead
+    #Import-Module CoreUtils
 }
 
 Set-Location ~
