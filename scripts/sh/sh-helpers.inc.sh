@@ -48,7 +48,7 @@ _help_from_annotations () {
 
     cat $_cmd | grep "$_pattern" \
         | sed \
-        -e 's,\s\+_'${_pattern1}'_\(\w\+\)),\n\t'${_basecmd}' \1,g' \
+        -e 's,\s\+_'${_pattern1}'_\([a-zA-Z0-9_-]\+\)),\n\t'${_basecmd}' \1,g' \
         -e 's,'${_pattern0}'\s*,\t\t,g' \
         -e 's,'${_pattern2}'\s*,\t,g' \
 

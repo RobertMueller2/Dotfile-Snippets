@@ -80,35 +80,9 @@ let {
         bar = [ $focused $launcher $tasks_reveal_button ]
     }
 
-    // idle_watch currently not published
-    // TODO: use something without color
-    $idle_state = {
-        type = "label"
-        class = "idle-state"
-        label = "{{watch:exec idle_watch --timeout 2000 --idle \"💤\" --resume \"🏃\" --initial-output \"🏃\"}}"
-    }
-
-    // the idea here is to have apps/user inhibitors as reported by sway
-    // needs to include systemd-inhibit somehow
-    // tooltip could contain more details, probably best to work with vars.
-    // not done yet, obviously :p
-    // #TODO
-    $idle_inhibitor_counter = {
-        type = "label"
-        class = "idle-inhibitor-counter"
-        label = "0/0"
-    }
-
-    $idle_inhibit = {
-        type = "button"
-        label = "{{1000:pgrep -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" > /dev/null && echo  || echo  }}"
-        on_click = "!pkill -u $(id -u) -x -f \"blankwindow-gtk-rs --app-id idle.inhibitor\" || exec blankwindow-gtk-rs --app-id idle.inhibitor"
-    }
- 
     $idle = {
-        type = "custom"
-        class = "idle"
-        bar = [ $idle_state $idle_inhibitor_counter $idle_inhibit ]
+        type = "inhibit"
+        durations = [ "inf" "00:05:00" "00:30:00" ]
     }
 
     // does currently not work
@@ -160,6 +134,35 @@ let {
 
     $battery = { type = "battery" }
 
+    // on click does not work
+    $volume = {
+        type = "volume"
+        on_click = "!qpwgraph"
+        on_click_right = "!pavucontrol" 
+    }
+
+    //TODO: icon
+    $backlight = {
+        type = "brightness"
+        mode.type = "systemd"
+        mode.subsystem = "backlight"
+        mode.name = "nvidia_wmi_ec_backlight"
+    }
+
+    $systemd_failed = {
+        type = "label"
+        class = "systemd-failed"
+        label = "{{30000:ironbar-helper.sh systemd-failed label}}"
+        tooltip = "{{30000:ironbar-helper.sh systemd-failed tooltip}}"
+    }
+
+    $weather = {
+        type = "label"
+        class = "weather"
+        label = "{{3600000:wttrbar | jq -r .text}} °"
+        tooltip = "{{3600000:wttrbar | jq -r .tooltip}}"
+    }
+
     // not ideal yet, might need a native module in the long run
     $wayeyes = {
         type = "label"
@@ -169,7 +172,7 @@ let {
 
     $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
     $center = [ $group_tasks $music ]
-    $end = [ $keyboard $battery $clock $tray ]
+    $end = [ $keyboard $systemd_failed $volume $backlight $weather $battery $clock $tray ]
 }
 
 in {

@@ -69,6 +69,37 @@ case _cmd_${CMD} in
 
         set_var_and_exit "$varname_set" "$content_false"
         ;;
+    _cmd_systemd-failed)
+        ## generates content or tooltip for systemd failed units
+        ### <content|tooltip>
+        #FIXME: yes, this shouldn't happen before we check if the argument is correct
+        f=$(systemctl --failed --no-legend --plain 2>/dev/null)
+        u=$(systemctl --user --failed --no-legend --plain 2>/dev/null)
+
+        case $1 in
+            label)
+                fc=$(echo "$f" | wc -l)
+                uc=$(echo "$u" | wc -l)
+                test $((fc+uc)) -gt 0 && printf '✗ %dS %dU' $fc $uc || echo '✓'
+                ;;
+            tooltip)
+                if [ -n "$f" ];then
+                    echo "Failed system units:"
+                    echo
+                    echo "$f"
+                    echo
+                fi
+                if [ -n "$u" ];then
+                    echo "Failed user units:"
+                    echo
+                    echo "$u"
+                    echo
+                fi
+                ;;
+            *)
+                _usage_and_exit 198
+        esac
+        ;;
     _cmd_help)
         _usage
         ;;
