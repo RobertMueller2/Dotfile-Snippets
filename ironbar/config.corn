@@ -82,7 +82,10 @@ let {
 
     $idle = {
         type = "inhibit"
-        durations = [ "inf" "00:05:00" "00:30:00" ]
+        backend = "wayland"
+        durations = [ "inf" "00:02:00" "00:05:00" "00:10:00" "00:30:00" ]
+        format_on = "☕ {duration}"
+        format_off = "💤"
     }
 
     // does currently not work
@@ -142,12 +145,12 @@ let {
     }
 
     //TODO: icon
-    $backlight = {
-        type = "brightness"
-        mode.type = "systemd"
-        mode.subsystem = "backlight"
-        mode.name = "nvidia_wmi_ec_backlight"
-    }
+    //$backlight = {
+    //    type = "brightness"
+    //    mode.type = "systemd"
+    //    mode.subsystem = "backlight"
+    //    mode.name = "nvidia_wmi_ec_backlight"
+    //}
 
     $systemd_failed = {
         type = "label"
@@ -172,7 +175,7 @@ let {
 
     $left = [ $power_menu $computer_label $process $workspaces $scratchpad $bindmode $wayeyes $idle ]
     $center = [ $group_tasks $music ]
-    $end = [ $keyboard $systemd_failed $volume $backlight $weather $battery $clock $tray ]
+    $end = [ $keyboard $systemd_failed $volume $weather $battery $clock $tray ]
 }
 
 in {
